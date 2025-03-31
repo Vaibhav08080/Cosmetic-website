@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Star } from 'lucide-react';
-
-interface Product {
-  id: number;
-  name: string;
-  price: string;
-  category: string;
-  image: string;
-  rating: number;
-}
+import type { Product } from '../types';
 
 export function Products() {
   const { category } = useParams<{ category: string }>();
@@ -54,6 +46,19 @@ export function Products() {
     !category || product.category === category
   );
 
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
+    switch (sortBy) {
+      case 'price-low':
+        return parseFloat(a.price.replace('$', '')) - parseFloat(b.price.replace('$', ''));
+      case 'price-high':
+        return parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', ''));
+      case 'rating':
+        return b.rating - a.rating;
+      default:
+        return 0;
+    }
+  });
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
@@ -73,7 +78,7 @@ export function Products() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-        {filteredProducts.map((product) => (
+        {sortedProducts.map((product) => (
           <div key={product.id} className="bg-white rounded-lg shadow-sm overflow-hidden">
             <Link to={`/product/${product.id}`}>
               <img src={product.image} alt={product.name} className="w-full h-64 object-cover" />

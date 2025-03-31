@@ -10,6 +10,13 @@ import { ProductDetail } from './pages/ProductDetail';
 import { Cart } from './pages/Cart';
 import { Account } from './pages/Account';
 import { Footer } from './components/Footer';
+import { Blog } from './pages/Blog';
+import { BlogPost } from './pages/BlogPost';
+import { About } from './pages/About';
+import { Contact } from './pages/Contact';
+import { Collections } from './pages/Collections';
+import { BodyCare } from './pages/BodyCare';
+import { Favorites } from './pages/Favorites';
 
 function App() {
   return (
@@ -26,6 +33,14 @@ function App() {
               <Route path="/product/:id" element={<ProductDetail />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/account" element={<Account />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/collections" element={<Collections />} />
+              <Route path="/collections/:id" element={<Collections />} />
+              <Route path="/body-care" element={<BodyCare />} />
+              <Route path="/favorites" element={<Favorites />} />
             </Routes>
           </main>
           <Footer />

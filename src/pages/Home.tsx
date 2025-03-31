@@ -34,6 +34,29 @@ export function Home() {
     }
   ];
 
+  const instagramPosts = [
+    {
+      id: 1,
+      image: "https://via.placeholder.com/150",
+      link: "https://instagram.com/p/example1"
+    },
+    {
+      id: 2,
+      image: "https://via.placeholder.com/150",
+      link: "https://instagram.com/p/example2"
+    },
+    {
+      id: 3,
+      image: "https://via.placeholder.com/150",
+      link: "https://instagram.com/p/example3"
+    },
+    {
+      id: 4,
+      image: "https://via.placeholder.com/150",
+      link: "https://instagram.com/p/example4"
+    }
+  ];
+
   return (
     <>
       {/* Hero Section */}
@@ -127,6 +150,65 @@ export function Home() {
               <p className="text-gray-600">Eco-friendly packaging for a better planet</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* New Arrivals Video Banner */}
+      <section className="py-16 bg-rose-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-serif text-center mb-8">New Arrivals</h2>
+          <div className="relative h-[400px] rounded-xl overflow-hidden">
+            <video 
+              autoPlay 
+              loop 
+              muted 
+              className="w-full h-full object-cover"
+            >
+              <source src="/videos/beauty-products.mp4" type="video/mp4" />
+            </video>
+            <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+              <Link 
+                to="/products/new-arrivals"
+                className="bg-white text-rose-600 px-8 py-3 rounded-full hover:bg-rose-100 transition"
+              >
+                Shop New Arrivals
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Instagram Feed */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-serif text-center mb-8">@BeautyStore on Instagram</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {instagramPosts.map((post) => (
+              <a href={post.link} target="_blank" rel="noopener noreferrer" key={post.id}
+                 className="relative group overflow-hidden">
+                <img src={post.image} alt="Instagram post" className="w-full aspect-square object-cover" />
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300" />
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-16 bg-rose-100">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-serif mb-4">Join Our Beauty Community</h2>
+          <p className="mb-8">Subscribe to get special offers, free giveaways, and beauty tips!</p>
+          <form className="max-w-md mx-auto flex gap-4">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="flex-1 px-4 py-2 rounded-full"
+            />
+            <button className="bg-rose-600 text-white px-6 py-2 rounded-full hover:bg-rose-700 transition">
+              Subscribe
+            </button>
+          </form>
         </div>
       </section>
     </>

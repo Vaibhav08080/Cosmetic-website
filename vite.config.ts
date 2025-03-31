@@ -7,4 +7,13 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['lucide-react'],
   },
+  server: {
+    port: 5173,
+    hmr: {
+      overlay: true
+    }
+  },
+  css: {
+    postcss: './postcss.config.js',
+  },
 });
