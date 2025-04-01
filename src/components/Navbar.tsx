@@ -8,17 +8,17 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm fixed w-full z-50">
-      <div className="container mx-auto px-4">
+    <header className="fixed z-50 w-full bg-white shadow-sm">
+      <div className="container px-4 mx-auto">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 -ml-2 lg:hidden"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
-            <Link to="/" className="text-3xl font-serif font-bold text-rose-600">
+            <Link to="/" className="font-serif text-3xl font-bold text-rose-600">
               Glow
             </Link>
           </div>
@@ -51,25 +51,33 @@ export function Navbar() {
 
           <div className="flex items-center space-x-4">
             <button className="p-2 text-gray-700 hover:text-rose-600">
-              <Search className="h-5 w-5" />
+              <Search className="w-5 h-5" />
             </button>
             <Link to="/favorites" className="p-2 text-gray-700 hover:text-rose-600">
-              <Heart className="h-5 w-5" />
+              <Heart className="w-5 h-5" />
             </Link>
             <Link to="/cart" className="p-2 text-gray-700 hover:text-rose-600">
-              <ShoppingBag className="h-5 w-5" />
+              <ShoppingBag className="w-5 h-5" />
             </Link>
             {user ? (
               <Link to="/account" className="p-2 text-gray-700 hover:text-rose-600">
-                <User className="h-5 w-5" />
+                <User className="w-5 h-5" />
               </Link>
             ) : (
-              <Link
-                to="/login"
-                className="inline-block px-4 py-2 text-sm font-medium text-white bg-rose-600 rounded hover:bg-rose-700"
-              >
-                Sign In
-              </Link>
+              <div className="flex flex-row items-center">
+                <Link
+                  to="/login"
+                  className="inline-block px-4 py-2 text-sm font-medium text-white rounded bg-rose-600 hover:bg-rose-700"
+                >
+                  Sign In
+                </Link>
+                {/* <p className="ml-2 text-gray-600 mltext-sm ml">
+                  New user?{' '}
+                  <Link to="/signup" className="font-medium text-rose-600 hover:underline">
+                    Sign up
+                  </Link>
+                </p> */}
+              </div>
             )}
           </div>
         </div>
