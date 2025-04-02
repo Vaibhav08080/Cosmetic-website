@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
       country: String
     }
   ],
+  role: { type: String, enum: ['user', 'admin'], default: 'user' },
   favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Product' }],
   createdAt: { type: Date, default: Date.now }
 });

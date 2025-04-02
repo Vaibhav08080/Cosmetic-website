@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@heroicons/react": "^2.2.0",
+    "@mui/icons-material": "^7.0.1",
     "@supabase/supabase-js": "^2.39.7",
     "axios": "^1.8.4",
     "lucide-react": "^0.344.0",

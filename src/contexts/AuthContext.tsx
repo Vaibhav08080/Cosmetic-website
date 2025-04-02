@@ -6,6 +6,8 @@ interface User {
   id: string;
   email: string;
   username: string;
+  role: 'user' | 'admin';
+  isVerified: boolean;
 }
 
 interface AuthContextType {
@@ -15,6 +17,7 @@ interface AuthContextType {
   signOut: () => Promise<void>;
   loading: boolean;
   error: string | null;
+  isAdmin: () => boolean; 
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -180,7 +183,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ user, signUp, signIn, signOut, loading, error }}>
+    <AuthContext.Provider value={{ user, signUp, signIn, signOut, loading, error, isAdmin: () => user?.role === 'admin' }}>
       {children}
     </AuthContext.Provider>
   );

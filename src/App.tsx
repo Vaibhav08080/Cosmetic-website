@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { Navbar } from './components/Navbar';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
@@ -17,9 +17,14 @@ import { Contact } from './pages/Contact';
 import { Collections } from './pages/Collections';
 import { BodyCare } from './pages/BodyCare';
 import { Favorites } from './pages/Favorites';
-import { useAuth } from './contexts/AuthContext';
+import AdminLayout from './components/Admin/AdminLayout';
 
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  adminOnly?: boolean;
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, adminOnly = false }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
@@ -32,6 +37,10 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
 
   if (!user) {
     return <Navigate to="/login" replace />;
+  }
+
+  if (adminOnly && user.role !== 'admin') {
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;
@@ -50,6 +59,7 @@ function App() {
           <Navbar />
           <main className="flex-grow pt-16">
             <Routes>
+              {/* Public Routes */}
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
@@ -61,6 +71,7 @@ function App() {
               <Route path="/collections/:id" element={<Collections />} />
               <Route path="/body-care" element={<BodyCare />} />
 
+              {/* Auth Routes */}
               <Route path="/login" element={
                 <PublicRoute>
                   <Login />
@@ -72,6 +83,7 @@ function App() {
                 </PublicRoute>
               } />
 
+              {/* Protected Routes */}
               <Route path="/account" element={
                 <ProtectedRoute>
                   <Account />
@@ -88,6 +100,14 @@ function App() {
                 </ProtectedRoute>
               } />
 
+              {/* Admin Routes */}
+              <Route path="/admin/*" element={
+                <ProtectedRoute adminOnly>
+                  <AdminLayout />
+                </ProtectedRoute>
+              } />
+
+              {/* 404 Fallback */}
               <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </main>
